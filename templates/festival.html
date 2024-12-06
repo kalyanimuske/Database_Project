@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival Registration</title>
+    <style>
+        /* Reusing styles for consistency */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #dfdae4, #dde2eb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 60px; /* To offset the fixed navbar */
+    margin-bottom: 60px; /* Add this line */
+}
+
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgba(42, 79, 119, 0.9);
+            font-size: 2em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #555;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            border-color: rgba(42, 79, 119, 0.9);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(42, 79, 119, 0.9);
+            color: #fff;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(42, 79, 119, 0.9);
+        }
+
+        .success-message {
+            color: green;
+            font-size: 1em;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        #event-details p {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        #event-details p strong {
+            color: rgba(42, 79, 119, 0.9);
+        }
+
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            label, select, button {
+                font-size: 0.9em;
+            }
+
+            #event-details p {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Added logout button -->
+
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Festival Registration</h1>
+        <form action="/festival" method="POST">
+            <label for="festival">Select a Festival:</label>
+            <select id="festival" name="festival_id" {% if festival_locked %} disabled {% endif %} required>
+                <option value="">--Choose a Festival--</option>
+                {% for festival in festivals %}
+                    <option value="{{ festival[0] }}" 
+                        {% if festival[0] == selected_festival %} selected {% endif %}>
+                        {{ festival[1] }} ({{ festival[2] }})
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" {% if festival_locked %} style="display:none;" {% endif %}>Register</button>
+        </form>
+
+        {% if success %}
+        <p class="success-message">{{ success }}</p>
+        <p style="margin-bottom: 20px;"><strong>Selected Festival:</strong> {{ selected_festival_name }}</p>
+
+        <form method="POST" action="/event">
+            
+            <label for="event">Select Event:</label>
+            <select id="event" name="event_id" onchange="updateEventDetails()">
+                <option value="">--Choose an Event--</option>
+                {% for event in events %}
+                    <option value="{{ event[0] }}" 
+                        data-date="{{ event[2] }}" 
+                        data-feedback="{{ event[3] }}" 
+                        data-starttime="{{ event[4] }}" 
+                        data-endtime="{{ event[5] }}" 
+                        data-price="{{ event[6] }}" 
+                        data-venue-name="{{ event[7] }}"
+                        data-venue-location="{{ event[8] }}"
+                        data-venue-description="{{ event[9] }}">
+                        {{ event[1] }}
+                    </option>
+                {% endfor %}
+            </select>
+    
+            <div id="event-details" style="display: none; margin-top: 20px;">
+                <p><strong>Event Date:</strong> <span id="event-date"></span></p>
+                <p><strong>Event Feedback:</strong> <span id="event-feedback"></span></p>
+                <p><strong>Start Time:</strong> <span id="event-starttime"></span></p>
+                <p><strong>End Time:</strong> <span id="event-endtime"></span></p>
+                <p><strong>Ticket Price:</strong> $<span id="event-price"></span></p>
+                <p><strong>Venue Name:</strong> <span id="event-venue-name"></span></p>
+                <p><strong>Venue Location:</strong> <span id="event-venue-location"></span></p>
+                <p><strong>Venue Description:</strong> <span id="event-venue-description"></span></p>
+            </div>
+
+            <input type="hidden" name="festival_id" value="{{ selected_festival }}">
+
+            <button type="submit">Register and Pay for the Event</button>
+        </form>
+        {% endif %}
+        <a href="javascript:void(0);" id="see-registrations" 
+        onclick="toggleRegistrations()" 
+        style="color: rgba(42, 79, 119, 0.9); 
+               text-decoration: underline; 
+               margin-top: 20px; 
+               display: inline-block; 
+               text-align: center;">
+         View What you have Already Registered for!
+     </a>
+    
+        <!-- Container for displaying registered details -->
+        <div id="registered-details" style="margin-top: 20px; display: none;">
+            <h2>Your Registrations</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="border-bottom: 2px solid #ddd; padding: 10px;">Festival</th>
+                        <th style="border-bottom: 2px solid #ddd; padding: 10px;">Event</th>
+                        <th style="border-bottom: 2px solid #ddd; padding: 10px;">Venue</th>
+                    </tr>
+                </thead>
+                <tbody id="registration-data">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+
+    <script>
+
+        function logout() {
+                    // Clear session or token (this depends on how authentication is managed, this is just an example)
+                    localStorage.removeItem('userAuthToken'); // Assuming JWT or other token is stored in local storage
+                    
+                    // Redirect to login page
+                    window.location.href = '/login';  // Change the path to your login page
+                }
+
+        function updateEventDetails() {
+            const eventSelect = document.getElementById('event');
+            const selectedOption = eventSelect.options[eventSelect.selectedIndex];
+
+            const eventDetailsElement = document.getElementById('event-details');
+            eventDetailsElement.style.display = 'none';
+
+            if (!selectedOption || !selectedOption.value) {
+                return;
+            }
+
+            const eventDate = document.getElementById('event-date');
+            const eventFeedback = document.getElementById('event-feedback');
+            const eventStartTime = document.getElementById('event-starttime');
+            const eventEndTime = document.getElementById('event-endtime');
+            const eventPrice = document.getElementById('event-price');
+            const venueName = document.getElementById('event-venue-name');
+            const venueLocation = document.getElementById('event-venue-location');
+            const venueDescription = document.getElementById('event-venue-description');
+
+            eventDate.textContent = selectedOption.getAttribute('data-date') || '';
+            eventFeedback.textContent = selectedOption.getAttribute('data-feedback') || '';
+            eventStartTime.textContent = selectedOption.getAttribute('data-starttime') || '';
+            eventEndTime.textContent = selectedOption.getAttribute('data-endtime') || '';
+            eventPrice.textContent = selectedOption.getAttribute('data-price') || '';
+            venueName.textContent = selectedOption.getAttribute('data-venue-name') || '';
+            venueLocation.textContent = selectedOption.getAttribute('data-venue-location') || '';
+            venueDescription.textContent = selectedOption.getAttribute('data-venue-description') || '';
+
+            eventDetailsElement.style.display = 'block';
+        }
+
+        window.onload = function() {
+            document.getElementById('event-details').style.display = 'none';
+        };
+
+        function toggleRegistrations() {
+    const registeredDetails = document.getElementById('registered-details');
+    registeredDetails.style.display = 
+        (registeredDetails.style.display === 'none' || registeredDetails.style.display === '') 
+        ? 'block' 
+        : 'none';
+}
+
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const registrationData = document.getElementById('registration-data');
+
+            // Fetch registered details on page load
+            fetch('/fetch-registrations')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+
+                    if (data.length > 0) {
+                        // Populate the table
+                        data.forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">${item.festival || ''}</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">${item.event || ''}</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">${item.venue || ''}</td>
+                            `;
+                            registrationData.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching registration details:', error);
+                });
+        });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #dfdae4, #dde2eb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 80px; /* To offset the fixed navbar */
+            margin-bottom: 60px; /* Ensuring no overlap with the footer */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgba(42, 79, 119, 0.9);
+            font-size: 2em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #555;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            border-color: rgba(42, 79, 119, 0.9);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(42, 79, 119, 0.9);
+            color: #fff;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(42, 79, 119, 0.9);
+        }
+
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            label, select, button {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+    <script>
+        function logout() {
+            // Clear user session data (for example, using sessionStorage)
+            sessionStorage.clear(); // or localStorage.clear() if that's where you're storing user info
+
+            // Redirect to the login page
+            window.location.href = '/login';  // Change '/login' to your login page URL
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Added logout button -->
+
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Payment for {{ event_name }}</h1>
+        <p>Festival: {{ festival_name }}</p>
+        <p><span class="ticket-price">Ticket Price: ${{ ticket_price }}</span></p>
+
+        <!-- Payment form -->
+        <form action="/process_payment" method="POST">
+            <label for="payment-method">Select Payment Method:</label>
+            <select id="payment-method" name="payment_method" required>
+                <option value="" disabled selected>Select a Payment Option</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Apple Pay">Apple Pay</option>
+            </select>
+
+            <!-- Hidden fields to pass additional data -->
+            <input type="hidden" name="ticket_price" value="{{ ticket_price }}">
+            <input type="hidden" name="event_id" value="{{ event_id }}">
+            <input type="hidden" name="user_id" value="{{ user_id }}">
+
+            <button type="submit">Proceed with Payment</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+</body>
+</html>

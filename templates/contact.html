@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Cultural Festival</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Page Styles */
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 100px 20px 50px;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact.html">Contact</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+
+        <div class="contact-info">
+            <p><strong>Email:</strong> <a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+            <p><strong>Address:</strong> 1234 Festival Ave, Atlanta, GA 30303</p>
+            <p><strong>Phone:</strong> (555) 123-4567</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+</body>
+</html>

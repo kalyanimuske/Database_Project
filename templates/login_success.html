@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful</title>
+    <style>
+        /* Reusing styles from the login page for consistency */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #dfdae4, #dde2eb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .message-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: rgba(42, 79, 119, 0.9);
+            font-size: 2em;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .link-container p {
+            margin: 20px 0;
+        }
+
+        .link-container a {
+            color: rgba(42, 79, 119, 0.9);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .link-container a:hover {
+            color: #333;
+        }
+
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        @media (max-width: 480px) {
+            .message-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .link-container a {
+                font-size: 1em;
+            }
+        }
+
+        /* Logout button style */
+
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Added logout button -->
+
+        </div>
+    </div>
+
+    <div class="message-container">
+        <h2>Welcome Back!</h2>
+        <p>Thank you, <strong>{{ user_name }}</strong>, for joining the Culture Festival!</p>
+        <div class="link-container">
+            <p><a href="/">Go back to the home page</a></p>
+            <p><a href="/festival">Go to Festivals</a></p>
+        </div>
+        <!-- Logout Button -->
+
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+
+    <script>
+        function logout() {
+            // Clear user session data (for example, using sessionStorage)
+            sessionStorage.clear(); // or localStorage.clear() if that's where you're storing user info
+
+            // Redirect to the login page
+            window.location.href = '/login';  // Change '/login' to your login page URL
+        }
+    </script>
+</body>
+</html>

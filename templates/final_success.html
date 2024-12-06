@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Success</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #dfdae4, #dde2eb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 80px; /* To offset the fixed navbar */
+            text-align: center;
+        }
+
+        h1 {
+            color: green;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+        }
+    </style>
+    <script>
+        // Logout function
+        function logout() {
+            // Clear session or token (this depends on how authentication is managed, this is just an example)
+            localStorage.removeItem('userAuthToken'); // Assuming JWT or other token is stored in local storage
+            
+            // Redirect to login page
+            window.location.href = '/login';  // Change the path to your login page
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+            <a href="#" class="logout-button" onclick="logout()">Logout</a> <!-- Added logout button -->
+
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>🎉 Registration and Payment Successful!</h1>
+        <p>You have successfully registered for <strong>{{ event_name }}</strong> under <strong>{{ festival_name }}</strong>.</p>
+        <p>Thank you for your payment of <strong>${{ ticket_price }}</strong>.</p>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+</body>
+</html>

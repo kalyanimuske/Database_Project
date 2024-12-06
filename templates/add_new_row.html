@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New {{ table_name }}</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page Layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(42, 79, 119, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New {{ table_name }}</h1>
+    <form method="POST">
+        {% for column in columns %}
+        {% if column[0] != 'id' %} <!-- Exclude 'id' from the form -->
+        <label for="{{ column[0] }}">{{ column[0] }}</label>
+        <input type="text" name="{{ column[0] }}" id="{{ column[0] }}" required>
+        {% endif %}
+        {% endfor %}
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

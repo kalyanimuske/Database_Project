@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Cultural Festival</title>
+    <style>
+        /* Body Styles */
+        body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #dfdae4, #dde2eb);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center; /* Centers content horizontally */
+        align-items: center; /* Centers content vertically */
+        height: 100vh; /* Full viewport height */
+        color: #333;
+        flex-direction: column; /* Ensure vertical alignment */
+    }
+
+
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container Styles */
+/* Body Styles */
+
+/* Container Styles */
+        .container {
+            width: 100%;
+            max-width: 400px; /* Keeps the form from being too wide */
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Heading Styles */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color:rgba(42, 79, 119, 0.9);
+            font-size: 1.8em;
+        }
+
+        /* Label Styles */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Input and Select Styles */
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color:rgba(42, 79, 119, 0.9);
+            outline: none;
+        }
+
+        /* Button Styles */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(42, 79, 119, 0.9);
+            color: #fff;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(42, 79, 119, 0.9);
+        }
+
+        /* Error Message Styles */
+        .error {
+            color: red;
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            label {
+                font-size: 0.85em;
+            }
+
+            input, select, button {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="Admin">Admin</option>
+                <option value="Sponsor">Sponsor</option>
+                <option value="Organizer">Organizer</option>
+                <option value="Vendor">Vendor</option>
+                <option value="Volunteer">Volunteer</option>
+                <option value="Participant">Participant</option>
+                <option value="Attendee">Attendee</option>
+            </select>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+</body>
+</html>

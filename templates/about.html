@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Cultural Festival</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap;
+        }
+
+        .navbar-left {
+            flex: 1;
+        }
+
+        .navbar-right {
+            justify-content: flex-end;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content overlay */
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            padding: 50px 20px;
+            color: rgb(19, 10, 10);
+            text-shadow: 0 2px 5px rgba(63, 56, 56, 0.7);
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .text-content {
+            width: 50%;
+            padding-right: 20px;
+            text-align: left;
+        }
+
+        .text-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .text-content h2 {
+            font-size: 2em;
+            margin: 30px 0;
+        }
+
+        .text-content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 45%;
+        }
+
+        .image-gallery img {
+            width: calc(50% - 10px);  /* Ensure two images per row */
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="text-content">
+            <h1>Welcome to the Cultural Festival</h1>
+            <p>
+                The Cultural Festival celebrates global traditions through various cultural activities, art exhibitions, performances, and culinary experiences. It's an event for people of all ages and backgrounds to learn, engage, and appreciate the diversity of our world. Join us in exploring the beauty of cultural diversity!
+            </p>
+
+            <h2>Event Highlights</h2>
+            <p>
+                From traditional music and dance performances to modern art displays and multicultural food stalls, there's something for everyone! Whether you're an art lover, a foodie, or simply looking to immerse yourself in different cultures, the Cultural Festival has something for you. This is a perfect opportunity to learn more about the vibrant cultures that shape our world.
+            </p>
+        </div>
+
+        <div class="image-gallery">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.eaqrdEBjr3PaT0s0vW7XrQHaEK&pid=Api&P=0&h=180" alt="Diwali Celebration">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.J5dga_jorJ5iOYowkPsUCQHaE9&pid=Api&P=0&h=180" alt="Cultural Celebration">
+            <img src="https://onestep4ward.com/wp-content/uploads/2013/07/john-thomas-LtE6W_JVTGc-unsplash-scaled.jpg" alt="Festival Celebration">
+            <img src="https://llerrah.com/uploadicon/cards/a-new-year-celebration.jpg" alt="New Year Celebration">
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+</body>
+</html>

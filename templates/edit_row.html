@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit {{ table_name }}</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page Layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(42, 79, 119, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Row - {{ table_name }}</h1>
+    <form method="POST" action="{{ url_for('update_row', table_name=table_name, row_id=row[0]) }}" onsubmit="return validateForm()">
+        {% for index, column in enumerate(columns) %}
+            <label for="{{ column }}">{{ column }}</label>
+            <input 
+                type="text" 
+                name="{{ column }}" 
+                id="{{ column }}" 
+                value="{{ row[index] }}" 
+                {% if column == 'id' %} readonly {% endif %}
+            >
+        {% endfor %}
+        <button type="submit">Update</button>
+    </form>
+    
+    
+    
+
+    <script>
+        function validateForm() {
+            let form = document.querySelector('form');
+            let inputs = form.querySelectorAll('input');
+            let valid = true;
+
+            inputs.forEach(input => {
+                // Skip validation for read-only fields (e.g., ID field)
+                if (!input.hasAttribute('readonly') && input.value.trim() === "") {
+                    valid = false;
+                    alert("Please fill in all fields before submitting.");
+                    input.focus();
+                }
+            });
+
+            return valid; // Only submit if all fields are valid
+        }
+    </script>
+</body>
+</html>

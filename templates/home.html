@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Cultural Festival</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Full-screen background slider */
+        .slider-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(30%); /* Darker brightness */
+            z-index: -1;
+            animation: slide 12s infinite; /* Total duration for all images */
+        }
+
+        @keyframes slide {
+            0% {
+                background-image: url('https://www.thescottishsun.co.uk/wp-content/uploads/sites/2/2017/08/nintchdbpict000345034150.jpg?strip=all&quality=100&w=1200&h=800&crop=1');
+            }
+            25% {
+                background-image: url('https://tse1.mm.bing.net/th?id=OIP.bLFveYH_4Emq_76A7IT0mwHaE7&pid=Api&P=0&h=180');
+            }
+            50% {
+                background-image: url('https://tse2.mm.bing.net/th?id=OIP.djtNqeKaVa_K-PddpRkIKgHaEk&pid=Api&P=0&h=180');
+            }
+            75% {
+                background-image: url('https://tse3.mm.bing.net/th?id=OIP.jww3doR15QEhLEd-uNPnAQHaEK&pid=Api&P=0&h=180');
+            }
+            100% {
+                background-image: url('https://www.thescottishsun.co.uk/wp-content/uploads/sites/2/2017/08/nintchdbpict000345034150.jpg?strip=all&quality=100&w=1200&h=800&crop=1');
+            }
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            box-sizing: border-box; /* Ensure padding fits within width */
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .navbar-left a, .navbar-right a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            white-space: nowrap; /* Prevent breaking words */
+        }
+
+        .navbar-left {
+            flex: 1; /* Ensure left side takes up available space */
+        }
+
+        .navbar-right {
+            justify-content: flex-end; /* Align links to the right */
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar-left, .navbar-right {
+                width: 100%; /* Take full width */
+                justify-content: space-between;
+            }
+        }
+
+        /* Content overlay */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 50px 0 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1.1em;
+            border-radius: 5px;
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: rgba(42, 79, 119, 1);
+        }
+
+        .footer {
+            background-color: rgba(42, 79, 119, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="slider-background"></div>
+
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a> 
+            <a href="/about">About</a>
+        </div>
+        <div class="navbar-right">
+            <a href="/contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to the Cultural Festival</h1>
+        <p>Join us in celebrating culture, art, and creativity. Get started now!</p>
+        <a href="/login" class="btn">Login</a>
+        <a href="/register" class="btn">Register</a>
+    </div>
+
+    <div class="footer">
+        © 2024 Cultural Festival Event Management System. All rights reserved.
+    </div>
+</body>
+</html>
