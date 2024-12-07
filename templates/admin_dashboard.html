@@ -147,6 +147,21 @@
             color: #333;
         }
 
+        #totalCollection {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+}
+        #festivalList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #festivalList div {
+            display: flex;
+            justify-content: space-between;
+        }
         .add-new-button, .edit-button, .delete-button {
             background-color: #a7c9e5;
             color: rgb(0, 0, 0);
@@ -260,6 +275,7 @@
         <a href="#" class="menu-button" onclick="toggleTable('ticket-table')">See Tickets Purchased</a>
         <a href="#" class="menu-button" onclick="toggleTable('payment-table')">Payments History</a>
         <button id="loadGraph" class="menu-button track-tickets-button">Tickets Sales Analysis</button>
+        <button id="seeTotalCollection" class="menu-button track-tickets-button">See Total Collection</button>
     </div>
     
 
@@ -312,7 +328,23 @@
     <div class="graph-container" id="graph-container">
         <canvas id="ticketSalesChart"></canvas>
     </div>
+    <!-- Section to display the total collection -->
+<!-- Section to display the total collection and festival collections -->
+    <div id="totalCollectionContainer" class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Festival: Collection</th>
+                </tr>
+            </thead>
+            <tbody id="festivalList">
+                <!-- Festival data will be inserted here -->
+            </tbody>
+        </table>
+        <div id="totalCollection"></div>
+    </div>
 
+    
     <div class="footer">
         © 2024 Cultural Festival Event Management System. All rights reserved.
     </div>
@@ -320,23 +352,34 @@
     <script>
         // Function to toggle table visibility
         function toggleTable(tableId) {
-    // Hide all tables
-    const tables = document.querySelectorAll('.table-container');
-    tables.forEach(table => {
-        table.style.display = 'none';
-    });
-
-    // Hide the graph container
-    document.getElementById('graph-container').style.display = 'none';
-
-    // Show the selected table
-    const table = document.getElementById(tableId);
-    if (table) {
-        table.style.display = 'block';
-    }
-}
-
-
+            // Hide all tables
+            const tables = document.querySelectorAll('.table-container');
+            tables.forEach(table => {
+                table.style.display = 'none';
+            });
+    
+            // Hide the graph container
+            document.getElementById('graph-container').style.display = 'none';
+    
+            // Show the selected table
+            const table = document.getElementById(tableId);
+            if (table) {
+                table.style.display = 'block';
+            }
+        }
+    
+        // Initially hide all content
+        document.addEventListener("DOMContentLoaded", function () {
+            // Hide all tables and sections initially
+            const tables = document.querySelectorAll('.table-container');
+            tables.forEach(table => {
+                table.style.display = 'none';
+            });
+    
+            document.getElementById('graph-container').style.display = 'none';
+            document.getElementById('totalCollectionContainer').style.display = 'none';
+        });
+    
         // Function to fetch and display the graph
         document.getElementById('loadGraph').addEventListener('click', function () {
             // Hide all tables
@@ -344,11 +387,11 @@
             tables.forEach(table => {
                 table.style.display = 'none';
             });
-
+    
             // Show the graph container
             const graphContainer = document.getElementById('graph-container');
             graphContainer.style.display = 'block';
-
+    
             // Fetch data and render the chart
             fetch('/fetch_graph_data') // Make a GET request to fetch graph data
                 .then(response => response.json())
@@ -357,7 +400,7 @@
                         alert("Error: " + data.error);
                         return;
                     }
-
+    
                     // Render the chart
                     const ctx = document.getElementById('ticketSalesChart').getContext('2d');
                     new Chart(ctx, {
@@ -386,6 +429,48 @@
                     console.error("Error fetching graph data:", error);
                 });
         });
+    
+        // Show total collection when clicked
+        document.getElementById('seeTotalCollection').addEventListener('click', function () {
+            // Hide all tables
+            const tables = document.querySelectorAll('.table-container');
+            tables.forEach(table => {
+                table.style.display = 'none';
+            });
+    
+            // Show the total collection result section
+            const totalCollectionContainer = document.getElementById('totalCollectionContainer');
+            totalCollectionContainer.style.display = 'block';
+    
+            // Clear any previous content
+            const festivalList = document.getElementById('festivalList');
+            festivalList.innerHTML = '';  // Clear previous data
+    
+            // Fetch total collection and festival collections data
+            fetch('/fetch_total_collection')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Error: " + data.error);
+                        return;
+                    }
+    
+                    // Display each festival collection
+                    const festivalListContainer = document.getElementById('festivalList');
+                    data.festival_collections.forEach(festival => {
+                        const festivalItem = document.createElement('div');
+                        festivalItem.textContent = `${festival[0]}: ${festival[1]}`;
+                        festivalListContainer.appendChild(festivalItem);
+                    });
+    
+                    // Display the total collection
+                    document.getElementById('totalCollection').textContent = `Total Collection: ${data.total_collection}`;
+                })
+                .catch(error => {
+                    console.error("Error fetching total collection:", error);
+                });
+        });
     </script>
+    
 </body>
 </html>

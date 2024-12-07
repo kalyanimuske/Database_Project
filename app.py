@@ -701,6 +701,45 @@ def fetch_graph_data():
         cursor.close()
         conn.close()
 
+@app.route('/fetch_total_collection', methods=['GET'])
+def fetch_total_collection():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Run the SQL query to calculate the total collection and collection per festival
+        cursor.execute("""
+            SELECT f.festival_name, SUM(p.amount) AS festival_collection
+            FROM Festival f
+            JOIN Event e ON f.festival_id = e.festival_id
+            JOIN Ticket t ON e.event_id = t.event_id
+            JOIN Payment p ON t.ticket_id = p.ticket_id
+            GROUP BY f.festival_name
+        """)
+
+        # Fetch all results (collections per festival)
+        festival_collections = cursor.fetchall()
+
+        # Calculate total collection across all festivals
+        cursor.execute("""
+            SELECT SUM(p.amount) AS total_collection
+            FROM Festival f
+            JOIN Event e ON f.festival_id = e.festival_id
+            JOIN Ticket t ON e.event_id = t.event_id
+            JOIN Payment p ON t.ticket_id = p.ticket_id
+        """)
+        total_result = cursor.fetchone()
+        total_collection = total_result[0] if total_result else 0
+
+        # Close the connection
+        cursor.close()
+        conn.close()
+
+        # Return both festival collections and total collection as JSON
+        return jsonify({'festival_collections': festival_collections, 'total_collection': total_collection})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 
 if __name__ == '__main__':
